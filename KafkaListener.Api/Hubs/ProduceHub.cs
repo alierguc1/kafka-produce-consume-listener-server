@@ -2,11 +2,11 @@
 
 namespace KafkaListener.Api.Hubs
 {
-    public class ProduceHub : Hub
+    public class ProduceHub : Hub<IProduceHub>
     {
-        public async Task SendProduceMessage(string user, string message)
+        public async Task SendMessage(string sendJsonMessage)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            await Clients.All.ReceiveMessage(sendJsonMessage);
         }
     }
 }

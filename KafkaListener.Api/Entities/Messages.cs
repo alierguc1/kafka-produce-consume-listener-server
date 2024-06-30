@@ -2,7 +2,6 @@
 {
     public class Messages
     {
-        public string User { get; set; }
-        public string Text { get; set; }
+        public string KafkaJsonMessage { get; set; }
     }
 }
