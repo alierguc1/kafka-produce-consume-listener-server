@@ -1,10 +1,18 @@
 using KafkaListener.Api.Hubs;
+using KafkaListener.Api.Produce;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+var kafkaBootstrapServers = builder.Configuration["Kafka:BootstrapServers"];
+builder.Services.AddSingleton(provider => new KafkaProducer(
+    provider.GetRequiredService<IHubContext<ProduceHub, IProduceHub>>(),
+    kafkaBootstrapServers));
 builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
