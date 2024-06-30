@@ -17,7 +17,7 @@ namespace KafkaListener.Api.Controllers
             _hubContext = hubContext;
         }
 
-        [HttpPost]
+        [HttpPost("sendProduce")]
         public async Task<IActionResult> PostMessage([FromBody] Messages message)
         {
             await _hubContext.Clients.All.SendAsync("ReceiveMessage", message.User, message.Text);
